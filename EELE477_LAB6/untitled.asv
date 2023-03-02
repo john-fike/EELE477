@@ -1,0 +1,5 @@
+close all; 
+clear;
+clc;
+
+Wf = exp(-(log2(f)-log2(fc)).^2/2*variance^2);
