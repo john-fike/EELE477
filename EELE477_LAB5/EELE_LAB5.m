@@ -41,17 +41,25 @@ for j = 1 : numVoices
 %         create envelope 
         A = linspace(0, 0.8, ceil(toneLength*.30));     %attack (35% of signal)
         D = linspace(0.8, 0.5,ceil(toneLength*0.05));    %delay (5% of signal)
-        S = linspace(0.5, 0.4,ceil(toneLength*0.40));    %sustain of (40% of note)
-        R = linspace(0.4, 0,ceil(toneLength*0.20));      %release  (25% of note)
+        S = linspace(0.5, 0.4,ceil(toneLength*0.20));    %sustain of (40% of note)
+        R = linspace(0.4, 0,ceil(toneLength*0.40));      %release  (25% of note)
         ADSR = [A D S R] ;
+
         
 %         apply envelope to note
         tone(1 : length(ADSR)) = tone(1 : length(ADSR)) .* ADSR;
-        
+        tone(length(ADSR):length(tone)) = tone(length(ADSR):length(tone)) * 0;
+
+        figure();
+        plot(tone);
+        pause
+
+
 %         add tone to final song signal 
         xx(startSample:endSample-1) = xx(startSample:endSample-1) + tone;    
     end
 end
+% spectrogram(xx,2048,[],2048,fs); colormap(1-gray(256));
 soundsc(xx);
 
 

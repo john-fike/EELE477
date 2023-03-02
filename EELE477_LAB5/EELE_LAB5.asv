@@ -5,12 +5,11 @@ clc;
 load('bach_fugue.mat');
 % load('bach_fugue_short.mat');
 
-bpm = 240;
+bpm = 120;
 beats_per_second = bpm/60;
 seconds_per_beat = 1/beats_per_second;
 seconds_per_pulse = seconds_per_beat / 4;
 fs = 11025;
-
 
 
 voiceEndTime = (theVoices(1).startPulses(length(theVoices(1).startPulses)) ... 
@@ -40,17 +39,25 @@ for j = 1 : numVoices
         toneLength = length(tone);
          
 %         create envelope 
-        A = linspace(0, 0.8, ceil(toneLength*.30));     %attack 35% of signal
-        D = linspace(0.8, 0.5,ceil(toneLength*0.05));    %delay of 5% of signal
-        S = linspace(0.5, 0.4,ceil(toneLength*0.40));    %sustain of 40% of signal
-        R = linspace(0.4, 0,ceil(toneLength*0.20));      %drop of 25% of signal
+        A = linspace(0, 0.8, ceil(toneLength*.30));     %attack (35% of signal)
+        D = linspace(0.8, 0.5,ceil(toneLength*0.05));    %delay (5% of signal)
+        S = linspace(0.5, 0.4,ceil(toneLength*0.20));    %sustain of (40% of note)
+        R = linspace(0.4, 0,ceil(toneLength*0.40));      %release  (25% of note)
         ADSR = [A D S R] ;
+
         
-%         tone(1 : length(ADSR)) = tone(1 : length(ADSR)) .* ADSR;
-        
+%         apply envelope to note
+        tone(1 : length(ADSR)) = tone(1 : length(ADSR)) .* ADSR;
+        tone(length(ADSR):length(tone)) = tone(length(ADSR):length(tone)) * 0;
+
+%         figure();
+%         plot(tone);
+%         pause
+%         add tone to final song signal 
         xx(startSample:endSample-1) = xx(startSample:endSample-1) + tone;    
     end
 end
+% spectrogram(xx,2048,[],2048,fs); colormap(1-gray(256));
 soundsc(xx);
 
 
