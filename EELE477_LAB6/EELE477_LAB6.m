@@ -15,7 +15,6 @@ plot(Wf);
 
 
 
-% xx = key2note (X, keynum, dur)
 xx = key2note(1, 16, 2)*exp((-(log2(440*2.^((16-49)/12))-log2(fc)).^2)/(2*variance^2));
 xx = xx + key2note(1,28,2)*exp((-(log2(440*2.^((28-49)/12))-log2(fc)).^2)/(2*variance^2));
 xx = xx + key2note(1,36,2)*exp((-(log2(440*2.^((36-49)/12))-log2(fc)).^2)/(2*variance^2));

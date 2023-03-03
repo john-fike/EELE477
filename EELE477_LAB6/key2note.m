@@ -1,4 +1,4 @@
-function xx = key2note(X, keynum, dur)
+function [xx, freq] = key2note(X, keynum, dur)
 % KEY2NOTE Produce a sinusoidal waveform corresponding to a
 % given piano key number
 %

@@ -5,7 +5,7 @@ clc;
 load('bach_fugue.mat');
 % load('bach_fugue_short.mat');
 
-bpm = 120;
+bpm = 240;
 beats_per_second = bpm/60;
 seconds_per_beat = 1/beats_per_second;
 seconds_per_pulse = seconds_per_beat / 4;
@@ -19,7 +19,8 @@ voiceEndTime = (theVoices(1).startPulses(length(theVoices(1).startPulses)) ...
 % voiceEndTime*fs*2 --> take end time in seconds and convert to number of
 % samples, then double to make sure nothing goes out of bounds (might
 % happen becuase of rounding or if first voice is shorter than the other
-% voices
+% voices. this isn't really necesary for the song given, but would be
+% helpful if other songs were to be fed to this thing
 xx = zeros(1,ceil(voiceEndTime*fs*2));
 
 %calculate number of voices in theVoices
@@ -47,17 +48,20 @@ for j = 1 : numVoices
 
         
 %         apply envelope to note
+%         second line addresses the fact that with rounding sometimes the
+%         envelope is slightly smaller than the note it is being applied
+%         to. the remaining part of the note is set to zero. However,
+%         commenting it out gives the song a great 8-bit cadence 
         tone(1 : length(ADSR)) = tone(1 : length(ADSR)) .* ADSR;
         tone(length(ADSR):length(tone)) = tone(length(ADSR):length(tone)) * 0;
 
-%         figure();
-%         plot(tone);
-%         pause
+
+
 %         add tone to final song signal 
         xx(startSample:endSample-1) = xx(startSample:endSample-1) + tone;    
     end
 end
-% spectrogram(xx,2048,[],2048,fs); colormap(1-gray(256));
+spectrogram(xx,2048,[],2048,fs);
 soundsc(xx);
 
 
