@@ -1,0 +1,16 @@
+clc;
+clear;
+
+cScale = key2note(1, 42, 2);
+cScale = zeros(1,length(xx))
+note = 49;
+bottomNote = note - 12*4;
+topNote = note + 12*4;
+
+
+for i = 1:12:97
+    xx = [xx key2note(1, i, 2)];
+    xx = [xx zeros(1,500)];
+end
+
+soundsc(xx);
