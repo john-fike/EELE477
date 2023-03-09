@@ -1,5 +1,9 @@
 function tone = toneGen(keynum,dur)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% generate a tone that is the sum of 9 octave spaced keys
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 tone = key2note(1, 42, dur);
 tone = zeros(1,length(tone));
 

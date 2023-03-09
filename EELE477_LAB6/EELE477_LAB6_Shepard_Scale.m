@@ -5,9 +5,7 @@ close all;
 noteDur = .5;
 cScale = key2note(1, 42, noteDur);
 cScale = zeros(1,length(cScale));
-note = 40;
-bottomNote = note - 12*4;
-topNote = note + 12*4;
+
 
 ff=2.^(5.78:1/12:10.7814);
 fc=440;
@@ -21,11 +19,11 @@ Wf = exp((-(log2(ff)-log2(fc)).^2)/(2*variance^2));
 
 
 for i = 1:12:97
-    cScale = [cScale toneGen(i,.5)];
+    cScale = [cScale toneGen(i,.5) zeros(1,10000)];
 end
 
 
-cScale = [cScale zeros(1,1000) cScale zeros(1,1000) cScale];
+cScale = [cScale zeros(1,1000) cScale zeros(1,1000) cScale zeros(1,1000) cScale zeros(1,1000) cScale];
 figure();
 plot(cScale)
 figure();
