@@ -19,11 +19,11 @@ Wf = exp((-(log2(ff)-log2(fc)).^2)/(2*variance^2));
 
 
 for i = 1:12:97
-    cScale = [cScale toneGen(i,.5) zeros(1,10000)];
+    cScale = [cScale toneGen(i,.5) zeros(1,10)];
 end
 
 
-cScale = [cScale zeros(1,1000) cScale zeros(1,1000) cScale zeros(1,1000) cScale zeros(1,1000) cScale];
+cScale = [cScale cScale cScale cScale cScale];
 figure();
 plot(cScale)
 figure();
