@@ -5,7 +5,7 @@ clc;
 load('bach_fugue.mat');
 % load('bach_fugue_short.mat');
 
-bpm = 240;
+bpm = 120;
 beats_per_second = bpm/60;
 seconds_per_beat = 1/beats_per_second;
 seconds_per_pulse = seconds_per_beat / 4;
@@ -20,7 +20,7 @@ voiceEndTime = (theVoices(1).startPulses(length(theVoices(1).startPulses)) ...
 % samples, then double to make sure nothing goes out of bounds (might
 % happen becuase of rounding or if first voice is shorter than the other
 % voices. this isn't really necesary for the song given, but would be
-% helpful if other songs were to be fed to this thing
+% helpful if other songs were to be fed to this
 xx = zeros(1,ceil(voiceEndTime*fs*2));
 
 %calculate number of voices in theVoices
@@ -38,15 +38,17 @@ for j = 1 : numVoices
 %         create note using key2note
         tone = key2note(1,key,sampleLength/fs);
         toneLength = length(tone);
+
+
          
 %         create envelope 
         A = linspace(0, 0.8, ceil(toneLength*.30));     %attack (35% of signal)
-        D = linspace(0.8, 0.5,ceil(toneLength*0.05));    %delay (5% of signal)
+        D = linspace(0.8, .5,ceil(toneLength*0.05));    %delay (5% of signal)
         S = linspace(0.5, 0.4,ceil(toneLength*0.20));    %sustain of (40% of note)
         R = linspace(0.4, 0,ceil(toneLength*0.40));      %release  (25% of note)
         ADSR = [A D S R] ;
 
-        
+
 %         apply envelope to note
 %         second line addresses the fact that with rounding sometimes the
 %         envelope is slightly smaller than the note it is being applied
@@ -55,12 +57,13 @@ for j = 1 : numVoices
         tone(1 : length(ADSR)) = tone(1 : length(ADSR)) .* ADSR;
         tone(length(ADSR):length(tone)) = tone(length(ADSR):length(tone)) * 0;
 
-
-
+  
+   
 %         add tone to final song signal 
         xx(startSample:endSample-1) = xx(startSample:endSample-1) + tone;    
     end
 end
+
 spectrogram(xx,2048,[],2048,fs);
 soundsc(xx);
 
