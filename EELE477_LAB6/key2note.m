@@ -9,7 +9,7 @@ function [xx, freq] = key2note(X, keynum, dur)
 % keynum = the piano keyboard number of the desired note
 % dur = the duration (in seconds) of the output note
 
-fs = 8000; %-- or use 8000 Hz
+fs = 22050; %-- or use 8000 Hz
 tt = 0:(1/fs):dur;
 freq = 440*2.^((keynum-49)/12)
 xx = real( X.*exp(j*2*pi.*freq.*tt));
