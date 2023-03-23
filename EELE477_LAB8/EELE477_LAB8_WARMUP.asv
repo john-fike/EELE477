@@ -14,10 +14,6 @@ figure()
 plot(ww400);
 %-1 black, 1 white
 
-%image with 5 horizontal lines
+%image 
 xpix_2 = ones(1,400).*(cos(2*pi*(0:400)/80)).';
-show_img(xpix_2,4,256,gray);
-
-p = 2;
-wp = xx(1:p:end,1:p:end);
-show_img(wp,5,256,gray);
+show_img(xpix_2,3,256,gray);
