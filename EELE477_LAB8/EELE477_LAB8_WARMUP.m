@@ -12,7 +12,7 @@ show_img(xpix,3,256,gray);
 ww400 = xpix(200,:);
 figure()
 plot(ww400);
-%-1 black, 1 white
+%0 black, 1 white
 
 %image with 5 horizontal lines
 xpix_2 = ones(1,400).*(cos(2*pi*(0:400)/80)).';
